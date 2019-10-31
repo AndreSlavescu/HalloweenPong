@@ -24,7 +24,7 @@ def make_ball(paddles=[], speed=INITIAL_BALL_SPEED):
 class MyGame(arcade.Window):
 
     def __init__(self, width, height):
-        super().__init__(width, height, 'ArcadePong!')
+        super().__init__(width, height, 'Halloween Pong!')
         self.set_update_rate(1/144)
 
         arcade.set_background_color(arcade.color.BLACK)
@@ -45,18 +45,20 @@ class MyGame(arcade.Window):
     def __award_point(self, ball):
         if ball.x <= BALL_KILL_THRESH:
             self.human_player.points += 1
+            arcade.set_background_color(arcade.color.GREEN)
         else:
             self.computer_opponent.points += 1
+            arcade.set_background_color(arcade.color.RED)
 
     def __draw_points(self):
-        arcade.draw_text(f'{self.human_player.points}', SCREEN_WIDTH-POINTS_DISPLAY_X_MARGIN, POINTS_DISPLAY_Y, arcade.color.ORANGE, 28)
-        arcade.draw_text(f'{self.computer_opponent.points}', POINTS_DISPLAY_X_MARGIN, POINTS_DISPLAY_Y, arcade.color.ORANGE, 28)
+        arcade.draw_text(f'{self.human_player.points}', SCREEN_WIDTH-POINTS_DISPLAY_X_MARGIN, POINTS_DISPLAY_Y, arcade.color.AMAZON, 36)
+        arcade.draw_text(f'{self.computer_opponent.points}', POINTS_DISPLAY_X_MARGIN, POINTS_DISPLAY_Y, arcade.color.MAGENTA, 36)
+        arcade.draw_text('HALLOWEEN PONG!!!', SCREEN_WIDTH / 2 -200, POINTS_DISPLAY_Y, arcade.color.ORANGE, 40)
 
     def setup(self):
-        human_paddle = Paddle(color=arcade.color.BLUE, x=SCREEN_WIDTH-PADDLE_WIDTH//2-PADDLE_MARGIN)
-        computer_paddle = Paddle(color=arcade.color.RED, x=PADDLE_WIDTH//2+PADDLE_MARGIN)
+        human_paddle = Paddle(color=arcade.color.ORANGE, x=SCREEN_WIDTH-PADDLE_WIDTH//2-PADDLE_MARGIN)
+        computer_paddle = Paddle(color=arcade.color.ORANGE, x=PADDLE_WIDTH//2+PADDLE_MARGIN)
         self.ball_init_speed = INITIAL_BALL_SPEED
-
         self.human_player = HumanPlayer(paddle=human_paddle)
         self.computer_opponent = ComputerPlayer(paddle=computer_paddle)
 
@@ -98,6 +100,7 @@ class MyGame(arcade.Window):
         self.human_player.paddle.move_to(y, dy)
 
     def on_mouse_press(self, x, y, button, key_modifiers):
+        arcade.set_background_color(arcade.color.BLACK)
         pass
 
     def on_mouse_release(self, x, y, button, key_modifiers):
